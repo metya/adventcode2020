@@ -12,8 +12,8 @@ function ocamlAnton(array)
             j = j - 1
         elseif _sum < 2020
             i = i + 1
-        else 
-            return sort_a[i]*sort_a[j]
+        else
+            return sort_a[i] * sort_a[j]
         end
     end
 end
@@ -23,7 +23,7 @@ function threesum(array)
     for i in sort_a
         for j in sort_a
             for a in sort_a
-                if i+j+a == 2020
+                if i + j + a == 2020
                     return i * j * a
                 end
             end
@@ -35,7 +35,7 @@ function twosum(array)
     sort_a = sort(array[:, 1])
     for i in sort_a
         for j in sort_a
-            if i+j == 2020
+            if i + j == 2020
                 return i * j
             end
         end
