@@ -2,6 +2,8 @@ selfdir = joinpath(splitdir(@__FILE__)[1], "input")
 required_fields = ["byr", "iyr", "eyr", "hgt", "hcl", "ecl", "pid"]
 optional_fields = ["cid"]
 
+#--------part1
+
 function valid_documents()
     valid = 0
     Document = Dict()
@@ -19,6 +21,26 @@ function valid_documents()
     end
     return valid
 end
+
+function valid_documents_pipe()
+    selfdir = joinpath(splitdir(@__FILE__)[1], "input")
+    required_fields = ["byr", "iyr", "eyr", "hgt", "hcl", "ecl", "pid"]
+    optional_fields = ["cid"]
+    a =
+        read(selfdir, String) |>
+        x -> split(x, "\n\n") .|> 
+        x -> split(x) .|> 
+        x -> split(x, ':')
+
+    b = 
+        a .|> 
+        Dict |> 
+        x -> mapreduce(y -> required_fields ⊆ keys(y), +, x)
+
+    return b
+end
+
+#---------part2
 
 function check_fields(Document)
     checks = 0
@@ -58,23 +80,6 @@ function valid_documents2()
     return valid
 end
 
-function valid_documents_pipe()
-    selfdir = joinpath(splitdir(@__FILE__)[1], "input")
-    required_fields = ["byr", "iyr", "eyr", "hgt", "hcl", "ecl", "pid"]
-    optional_fields = ["cid"]
-    a =
-        read(selfdir, String) |>
-        x -> split(x, "\n\n") .|> 
-        x -> split(x) .|> 
-        x -> split(x, ':')
-
-    b = 
-        a .|> 
-        Dict |> 
-        x -> mapreduce(y -> required_fields ⊆ keys(y), +, x)
-
-    return b
-end
 
 function valid_documents_pipe2()
     selfdir = selfdir = joinpath(splitdir(@__FILE__)[1], "input")
@@ -94,8 +99,10 @@ function valid_documents_pipe2()
     return b
 end
 
-valid1 = valid_documents_pipe()
-valid2 = valid_documents()
+#--------evaluation
 
-valid3 = valid_documents2()
-valid4 = valid_documents_pipe2()
+valid2 = @btime valid_documents()
+valid1 = @btime valid_documents_pipe()
+
+valid3 = @btime valid_documents2()
+valid4 = @btime valid_documents_pipe2()

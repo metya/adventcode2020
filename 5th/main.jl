@@ -10,5 +10,5 @@ function what_seat()
     setdiff(minimum(ids):maximum(ids), ids)[1]
 end
 
-max_id()
-what_seat()
+println("max id: $(@btime max_id())")
+println("what seat: $(@btime what_seat())")

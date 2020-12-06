@@ -2,6 +2,19 @@ using Combinatorics
 using DelimitedFiles
 using BenchmarkTools
 
+#--------part1
+
+function twosum(array)
+    sort_a = sort(array[:, 1])
+    for i in sort_a
+        for j in sort_a
+            if i + j == 2020
+                return i * j
+            end
+        end
+    end
+end
+
 function ocamlAnton(array)
     sort_a = sort(array[:, 1])
     i = 1
@@ -18,6 +31,16 @@ function ocamlAnton(array)
     end
 end
 
+function twosumcomb(array)
+    for pair in combinations(array, 2)
+        if sum(pair) == 2020
+            return prod(pair)
+        end
+    end
+end
+
+#--------part2
+
 function threesum(array)
     sort_a = sort(array[:, 1])
     for i in sort_a
@@ -31,25 +54,6 @@ function threesum(array)
     end
 end
 
-function twosum(array)
-    sort_a = sort(array[:, 1])
-    for i in sort_a
-        for j in sort_a
-            if i + j == 2020
-                return i * j
-            end
-        end
-    end
-end
-
-function twosumcomb(array)
-    for pair in combinations(array, 2)
-        if sum(pair) == 2020
-            return prod(pair)
-        end
-    end
-end
-
 function threesumcomb(array)
     for cort in combinations(array, 3)
         if sum(cort) == 2020
@@ -57,6 +61,8 @@ function threesumcomb(array)
         end
     end
 end
+
+#--------evaluation
 
 selfdir = joinpath(@__DIR__, "input")
 array = readdlm(selfdir, Int)
