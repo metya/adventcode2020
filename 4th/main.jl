@@ -59,7 +59,7 @@ function valid_documents2()
 end
 
 function valid_documents_pipe()
-    selfdir = selfdir = joinpath(splitdir(@__FILE__)[1], "input")
+    selfdir = joinpath(splitdir(@__FILE__)[1], "input")
     required_fields = ["byr", "iyr", "eyr", "hgt", "hcl", "ecl", "pid"]
     optional_fields = ["cid"]
     a =
